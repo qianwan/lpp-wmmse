@@ -2,9 +2,9 @@ clear;
 K = 4;
 M = 4;
 N = 2;
-Q = 5;
+Q = 16;
 I = 10;
-SNRdB = 0;
+SNRdB = 10;
 SNR = 10^(SNRdB / 10);
 P = SNR / Q;
 clusters = zeros(K, 1);
@@ -37,7 +37,7 @@ epsilon = 1e-1;
 innerEpsilon = 1e-1;
 maxNumCand = Q * K;
 numCand = maxNumCand;
-alpha = 1e-3;
+alpha = 1e-2;
 innerIter = ones(numCases, 1);
 outerIter = zeros(numCases, 1);
 
@@ -78,16 +78,16 @@ for ci = 1 : numCases
                 U, W, S, T, P, mmse, omega, numCand, 1, false);
             bAlpha = alpha;
             cc = 1;
-            %while innerObj > innerPrev
-            %    bAlpha = bAlpha / 2;
-            %    cc = cc + 1;
-            %    if cc > 10
-            %        % break;
-            %    end
-            %    An = updateLPSWMmsePowerAlloc(K, Q, A, D, S, P, bAlpha / innerCnt);
-            %    [X, DT, subIter, innerObj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, An, V, ...
-            %        U, W, S, T, P, mmse, omega, numCand, 1, false);
-            %end
+            while innerObj > innerPrev
+                bAlpha = bAlpha / 2;
+                cc = cc + 1;
+                if cc > 10
+                    break;
+                end
+                An = updateLPSWMmsePowerAlloc(K, Q, A, D, S, P, bAlpha / innerCnt);
+                [X, DT, subIter, innerObj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, An, V, ...
+                    U, W, S, T, P, mmse, omega, numCand, 1, false);
+            end
             V = X;
             D = DT;
             A = An;
