@@ -1,10 +1,10 @@
 clear;
 K = 4;
-M = 4;
+M = 8;
 N = 2;
-Q = 16;
+Q = 8;
 I = 10;
-SNRdB = 10;
+SNRdB = 0;
 SNR = 10^(SNRdB / 10);
 P = SNR / Q;
 clusters = zeros(K, 1);
@@ -37,7 +37,7 @@ epsilon = 1e-1;
 innerEpsilon = 1e-1;
 maxNumCand = Q * K;
 numCand = maxNumCand;
-alpha = 1e-2;
+alpha = 1e-3;
 innerIter = ones(numCases, 1);
 outerIter = zeros(numCases, 1);
 
