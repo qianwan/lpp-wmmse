@@ -1,19 +1,20 @@
-function [S, T] = findCandidateBSs(K, Q, M, I, N, H, maxNumCand)
+function [S, T] = findCandidateBSs(K, Q, M, I, N, H, maxNumCand, bss, ues, Dc, Rc)
     S = zeros(K * I, K * Q);
     T = zeros(K * I, maxNumCand * M);
     for ik = 1 : K * I
-        TrH = zeros(1, K * Q);
-        rowOffset = (ik - 1) * N + 1 : ik * N;
         for ql = 1 : K * Q
-            colOffset = (ql - 1) * M + 1 : ql * M;
-            h = H(rowOffset, colOffset);
-            TrH(ql) = trace(h * h');
+            d = abs(bss(ql) - ues(ik));
+            if d <= Dc
+                S(ik, ql) = ql;
+            elseif d < Rc
+                S(ik, ql) = ql;
+            end
         end
-        [sTrH, index] = sort(TrH, 'descend');
-        S(ik, index(1 : maxNumCand)) = index(1 : maxNumCand);
         Sik = S(ik, S(ik, :) ~= 0);
         for c = 1 : maxNumCand
-            T(ik, (c - 1) * M + 1 : c * M) = (Sik(c) - 1) * M + 1 : Sik(c) * M;
+            if c <= length(Sik) && Sik(c) ~= 0
+                T(ik, (c - 1) * M + 1 : c * M) = (Sik(c) - 1) * M + 1 : Sik(c) * M;
+            end
         end
     end
     return

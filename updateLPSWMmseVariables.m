@@ -1,4 +1,4 @@
-function [U, W, R, obj, Sv] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V, Lp)
+function [U, W, R, obj, Sv] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V)
     U = zeros(K * I * N, 1);
     W = zeros(K * I, 1);
     R = zeros(K * I, 1);
@@ -22,7 +22,6 @@ function [U, W, R, obj, Sv] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V, Lp
         for ql = Sik
             rowOffset = (ql - 1) * M + 1 : ql * M;
             v = V(rowOffset, ik);
-            obj = obj - Lp(ik, ql) * norm(v);
             if norm(v) > 1e-6
                 Sv(ik) = Sv(ik) + 1;
             end

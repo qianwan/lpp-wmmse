@@ -3,22 +3,7 @@ function [BSs, UEs] = brownian(K, Q, I, locations, outerRadius)
     UEs = zeros(K * I, 1);
     for k = 1 : K
         for q = 1 : Q
-            x = 0;
-            y = 0;
-            while true
-                x = (rand - 0.5) * 2 * outerRadius;
-                y = (rand - 0.5) * 2 * outerRadius;
-                mx = abs(x);
-                my = abs(y);
-                valid = true;
-                if my > outerRadius * sin(pi / 3) || (sqrt(3) * mx + my > outerRadius * sqrt(3))
-                    valid = false;
-                end
-                if valid == true
-                    break;
-                end
-            end
-            BSs((k - 1) * Q + q) = x + y * 1j + locations(k);
+            BSs((k - 1) * Q + q) = locations(k);
         end
         for i = 1 : I
             while true

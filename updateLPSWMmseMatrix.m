@@ -1,9 +1,6 @@
-function [mmse, omega, ols] = updateLPSWMmseMatrix(K, Q, M, I, N, H, U, W, S, T, maxNumCand)
+function [mmse, omega] = updateLPSWMmseMatrix(K, Q, M, I, N, H, U, W, S, T, maxNumCand)
     mmse = zeros(maxNumCand * M, K * I * maxNumCand * M);
     omega = zeros(K * I, maxNumCand);
-    ols = zeros(K * I, K * Q);
-    fMik = zeros(K * Q * M, K * Q * M);
-    flag = 1;
     for ik = 1 : K * I
         rowOffset = (ik - 1) * N + 1 : ik * N;
         u = U(rowOffset, 1);
@@ -29,15 +26,5 @@ function [mmse, omega, ols] = updateLPSWMmseMatrix(K, Q, M, I, N, H, U, W, S, T,
         rowOffset = (ik - 1) * N + 1 : ik * N;
         h = H(rowOffset, Tik);
         u = U(rowOffset, 1);
-        assert(rank(Mik) == size(Mik, 1), 'rank deficient, how to obtain ols?');
-        vik = W(ik) * Mik \ (h' * u);
-        % if flag == 1
-        %     flag = 2;
-        %     fprintf(2, 'mmse rho=%f, w=%f, u=%f, v=%f\n', max(eig(Mik)), W(ik), norm(u), norm(vik));
-        % end
-        for s = 1 : length(Sik)
-            ols(ik, Sik(s)) = norm(vik((s - 1) * M + 1 : s * M, 1));
-            assert(norm(ols(ik, Sik(s))) ~= 0, 'ols should be positive');
-        end
     end
     return
