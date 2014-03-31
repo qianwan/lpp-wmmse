@@ -31,12 +31,17 @@ function [X, D, Iter, Obj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, U, .
                 c = b * omegaql * vql - gql;
                 multiplier = 0;
                 nu = A(ik, ql)^(-0.5);
-                if norm(c, 2) <= b * omegaql * nu
-                    multiplier = 0;
+                if A(ik, ql) > 1e-7
+                    if norm(c, 2) <= b * omegaql * A(ik, ql)^0.5
+                        multiplier = 0;
+                    else
+                        multiplier = (norm(c, 2) * nu - b * omegaql) / 2;
+                    end
+                    vikql = c / (b * omegaql + 2 * multiplier);
                 else
-                    multiplier = (norm(c, 2) * nu - b * omegaql) / 2;
+                    vikql = zeros(size(c));
                 end
-                vik((index - 1) * M + 1 : index * M) = c / (b * omegaql + 2 * multiplier);
+                vik((index - 1) * M + 1 : index * M) = vikql;
                 D(ik, ql) = -multiplier;
             end
             h = H((ik - 1) * N + 1 : ik * N, Tik);

@@ -2,7 +2,7 @@ clear;
 K = 4;
 M = 4;
 N = 2;
-Q = 16;
+Q = 5;
 I = 10;
 SNRdB = 0;
 SNR = 10^(SNRdB / 10);
@@ -37,11 +37,13 @@ epsilon = 1e-1;
 innerEpsilon = 1e-1;
 maxNumCand = Q * K;
 numCand = maxNumCand;
-alpha = 3e-1;
+alpha = 1e-3;
 innerIter = ones(numCases, 1);
 outerIter = zeros(numCases, 1);
+
 rateCase = zeros(numCases, 1);
 SvCase = zeros(numCases, 1);
+rpcCase = zeros(numCases, 1);
 
 for ci = 1 : numCases
     numIterations = 0;
@@ -52,7 +54,7 @@ for ci = 1 : numCases
     [S, T] = findCandidateBSs(K, Q, M, I, N, H, numCand, bss, ues, Dc, Rc);
     A = initPowerAllocWithCandidateBSs(K, Q, M, I, H, S, P);
     V = generateRandomTxVectorWithAlloc(K, Q, M, I, A);
-    [U, W, R, obj, Sv] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V);
+    [U, W, R, obj, Sv, pc] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V);
     [mmse, omega] = updateLPSWMmseMatrix(K, Q, M, I, N, H, U, W, S, T, numCand);
     while abs(prev - obj) > epsilon
         prev = obj;
@@ -92,15 +94,16 @@ for ci = 1 : numCases
             innerCnt = innerCnt + 1;
             fprintf(2, '%d.%d.%d obj=%f\n', ci, numIterations, innerCnt, innerObj);
         end
-        [U, W, R, obj, Sv] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V);
-        fprintf(2, '%d.%d Obj=%f, R=%f, Sv=%f, SvMin=%d, SvMax=%d\n', ci, numIterations, ...
-            obj, sum(R), mean(Sv), min(Sv(Sv ~= 0)), max(Sv));
+        [U, W, R, obj, Sv, pc] = updateLPSWMmseVariables(K, Q, M, I, N, H, S, V);
+        fprintf(2, '%d.%d Obj=%f, R=%f, Sv=%f, SvMin=%d, SvMax=%d, rpc=%f\n', ci, numIterations, ...
+            obj, sum(R), mean(Sv), min(Sv(Sv ~= 0)), max(Sv), pc / (P * Q * K));
         [S, T] = updateCandidateBSs(K, Q, M, I, N, H, A, S, numCand);
     end
     rateCase(ci) = sum(R);
     SvCase(ci) = mean(Sv);
+    rpcCase(ci) = pc / (P * Q * K);
     if mod(ci, 10) == 0
-        fprintf(2, 'R=%f, Sv=%f\n', mean(rateCase(1 : ci)), mean(SvCase(1 : ci)));
+        fprintf(2, 'R=%f, Sv=%f, rpc=%f\n', mean(rateCase(1 : ci)), mean(SvCase(1 : ci)), mean(rpcCase(1 : ci)));
     end
 end
-fprintf(2, 'R=%f, Sv=%f\n', mean(rateCase), mean(SvCase));
+fprintf(2, 'R=%f, Sv=%f, rpc=%f\n', mean(rateCase), mean(SvCase), mean(rpcCase));
