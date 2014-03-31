@@ -9,7 +9,7 @@ SNR = 10^(SNRdB / 10);
 P = SNR / Q;
 clusters = zeros(K, 1);
 r = 1000;
-Dc = r / 2 * 0.5;
+Dc = r / sqrt(3) * 0.5;
 Rc = r / 2 * 1.5;
 if K == 1
     clusters = 0;
