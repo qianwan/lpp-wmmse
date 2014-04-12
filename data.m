@@ -10,7 +10,7 @@ wmmseM4Q5C7 = [164, 213, 258, 290, 309, 315, 319];
 % power consumption 100%
 
 plot(dB, rM8Q16C7, '-o', dB, rM8Q8C7, '-s', dB, wmmseM8Q8C7, '-p', dB, rM4Q5C7, '-^', dB, wmmseM4Q5C7, '-d', 'LineWidth', 1.5);
-legend('LPP-WMMSE, M=128', 'LPP-WMMSE, M=64', 'WMMSE, M=64', 'LPP-WMMSE, M=20', 'WMMSE, M=20');
+legend('LPP-WMMSE, M=128, G=16', 'LPP-WMMSE, M=64, G=8', 'WMMSE, M=64', 'LPP-WMMSE, M=20, G=5', 'WMMSE, M=20');
 grid on;
 xlabel('SNR (dB)');
 ylabel('System Throughput (bits per channel user)');
