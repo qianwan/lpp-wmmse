@@ -9,7 +9,7 @@ rM4Q5C7 = [130, 175, 233, 286, 315, 336, 342];
 wmmseM4Q5C7 = [164, 213, 258, 290, 309, 315, 319];
 % power consumption 100%
 
-plot(dB, rM8Q16C7, '-o', dB, rM8Q8C7, '-s', dB, rM4Q5C7, '-^', dB, wmmseM4Q5C7, '-*');
+plot(dB, rM8Q16C7, '-o', dB, rM8Q8C7, '-s', dB, rM4Q5C7, '-^', dB, wmmseM4Q5C7, '-*', 'LineWidth', 1.5);
 legend('LPP-WMMSE, M=128', 'LPP-WMMSE, M=64', 'LPP-WMMSE, M=20', 'WMMSE, M=20');
 grid on;
 xlabel('SNR (dB)');
