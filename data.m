@@ -1,6 +1,5 @@
 dB = [0 : 5 : 30];
 rM8Q8C7 = [259, 340, 422, 510, 590, 650, 692];
-rpcM8Q8C7 = [1.0 0.99 0.99 0.98 0.99, 0.99, 0.99];
 wmmseM8Q8C7 = [278, 357, 430, 495, 536, 562, 584];
 
 rM8Q16C7 = [289, 390, 482, 596, 722, 845, 957];
@@ -14,3 +13,15 @@ legend('LPP-WMMSE, M=128, G=16', 'LPP-WMMSE, M=64, G=8', 'WMMSE, M=64', 'LPP-WMM
 grid on;
 xlabel('SNR (dB)');
 ylabel('System Throughput (bits per channel user)');
+
+dB = [5 : 5 : 30];
+rpcWMMSE = [1, 1, 1, 1, 1, 1];
+rpcM8Q8C7 = [0.99 0.99 0.98 0.96, 0.93, 0.90];
+rpcM8Q16C7 = [0.95 0.80 0.80 0.80 0.80 0.80];
+bar1 = bar(dB, rpcWMMSE, 'BarWidth', 0.2, 'FaceColor', 'b');
+hold on;
+bar2 = bar(dB + 0.5, rpcM8Q8C7, 'BarWidth', 0.2, 'FaceColor', 'g');
+hold on;
+bar3 = bar(dB + 1, rpcM8Q16C7, 'BarWidth', 0.2, 'FaceColor', 'r');
+xlabel('SNR (dB)');
+ylabel('Relative Power Consumption');
