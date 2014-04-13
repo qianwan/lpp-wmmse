@@ -2,7 +2,7 @@ function [X, D, Iter, Obj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, U, .
     W, S, T, P, mmse, omega, maxNumCand, b, standalone)
     X = zeros(size(V));
     D = zeros(K * I, K * Q);
-    Iter = zeros(K * I, 1);
+    Iter = zeros(1, K * I);
     Obj = 0;
     for ik = 1 : K * I
         u = U((ik - 1) * N + 1 : ik * N);
@@ -18,9 +18,12 @@ function [X, D, Iter, Obj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, U, .
         h = H((ik - 1) * N + 1 : ik * N, Tik);
         subObj = subproblemObjective(Mik, vik, h, w, u, Sik, M);
         prev = 0;
-        while abs(prev - subObj) > 1e-4
-            Iter(ik) = Iter(ik) + 1;
+        while abs(prev - subObj) > 1e-1
             prev = subObj;
+            if length(Sik) == 48
+                Iter(ik) = Iter(ik) + 1;
+            end
+            xik = vik;
             for index = 1 : length(Sik)
                 ql = Sik(index);
                 h = H((ik - 1) * N + 1 : ik * N, (ql - 1) * M + 1 : ql * M);
@@ -41,9 +44,10 @@ function [X, D, Iter, Obj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, U, .
                 else
                     vikql = zeros(size(c));
                 end
-                vik((index - 1) * M + 1 : index * M) = vikql;
+                xik((index - 1) * M + 1 : index * M) = vikql;
                 D(ik, ql) = -multiplier;
             end
+            vik = xik;
             h = H((ik - 1) * N + 1 : ik * N, Tik);
             subObj = subproblemObjective(Mik, vik, h, w, u, Sik, M);
             if standalone
