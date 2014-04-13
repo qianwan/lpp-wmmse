@@ -65,7 +65,7 @@ for ci = 1 : numCases
         outerIter(ci) = outerIter(ci) + 1;
         [mmse, omega] = updateLPSWMmseMatrix(K, Q, M, I, N, H, U, W, S, T, numCand);
         [V, D, subIter, innerObj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, ...
-            U, W, S, T, P, mmse, omega, numCand, 12, false);
+            U, W, S, T, P, mmse, omega, numCand, 8, false);
         subIters = [subIters subIter(subIter~=0)];
         fprintf(2, '#%d\n', ci);
         break;

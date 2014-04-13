@@ -18,7 +18,7 @@ function [X, D, Iter, Obj] = updateLPSWMmseTxVector(K, Q, M, I, N, H, A, V, U, .
         h = H((ik - 1) * N + 1 : ik * N, Tik);
         subObj = subproblemObjective(Mik, vik, h, w, u, Sik, M);
         prev = 0;
-        while abs(prev - subObj) > 1e-1
+        while abs(prev - subObj) > 1e-6
             prev = subObj;
             if length(Sik) == 48
                 Iter(ik) = Iter(ik) + 1;
