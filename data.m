@@ -27,3 +27,18 @@ xlabel('SNR (dB)');
 ylabel('Relative Power Consumption');
 grid on;
 legend('LPP-WMMSE, M=64', 'WMMSE', 'LPP-WMMSE, M=128');
+
+epsilon = [1e-1 1e-2 1e-3 1e-4 1e-5 1e-6 1e-7];
+sM128 = [];
+pM128b24 = [];
+pM128b12 = [];
+sM64 = [];
+pM64b12 = [];
+pM64b6 = [];
+semilogx(epsilon, sM128, '-o', epsilon, pM128b24, '-s', epsilon, pM128b12, '-p', ...
+         epsilon, sM64, '-^', epsilon, pM64b12, '-d', epsilon, pM64b6, '-h');
+legend('Serial BCD, M=128', 'Parallel BCD, M=128, \beta_{ik}=24', 'Parallel BCD, M=128, \beta_{ik}=12', ...
+       'Serial BCD, M=64', 'Parallel BCD, M=64, \beta_{ik}=12', 'Parallel BCD, M=64, \beta_{ik}=6');
+xlabel('Stopping Criteria');
+ylabel('Number of Itertations');
+grid on;
