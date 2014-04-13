@@ -28,9 +28,11 @@ ylabel('Relative Power Consumption');
 grid on;
 legend('LPP-WMMSE, M=64', 'WMMSE', 'LPP-WMMSE, M=128');
 
+range = [1:7];
 epsilon = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7];
+%epsilon = [1, 2, 3, 4, 5, 6, 7];
 sM128 = [52, 137, 367, 878, 1819, 3517, 5669];
-pM128b24 = [3.2, 15.3, 57.1, 184, 593, 1478, 4500];
+pM128b24 = [3.2, 15.3, 57.1, 184, 593, 1478, 3000];
 pM128b12 = [];
 pM128b8 = [2.9, 10.1, 36, 106, 289, 764, 1441];
 pM128b6 = [2.7, 9.1, 29.5, ];
@@ -40,8 +42,8 @@ pM64b12 = [3, 13.6, 50.8, 168, 434, 897, 1576];
 pM64b6 = [];
 pM64b5 = [2.9, 10.2, 35.3, ];
 pM64b4 = [2.8, 9.6, 32, 90, 214, 425, 689];
-semilogx(epsilon, sM128, '-o', epsilon, pM128b24, '-s', epsilon, pM128b8, '-p', ...
-         epsilon, sM64, '-^', epsilon, pM64b12, '-d', epsilon, pM64b4, '-h');
+loglog(epsilon(range), sM128(range), '-o', epsilon(range), pM128b24(range), '-s', epsilon(range), pM128b8(range), '-p', ...
+         epsilon(range), sM64(range), '-^', epsilon(range), pM64b12(range), '-d', epsilon(range), pM64b4(range), '-h');
 legend('Serial BCD, M=128', 'Parallel BCD, M=128, \beta_{ik}=24', 'Parallel BCD, M=128, \beta_{ik}=8', ...
        'Serial BCD, M=64', 'Parallel BCD, M=64, \beta_{ik}=12', 'Parallel BCD, M=64, \beta_{ik}=4');
 xlabel('Stopping Criteria');
