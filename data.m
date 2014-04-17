@@ -47,5 +47,5 @@ loglog(epsilon(range), sM128(range), '-o', epsilon(range), pM128b24(range), '-s'
 legend('Serial BCD, M=128', 'Parallel BCD, M=128, \beta_{ik}=24', 'Parallel BCD, M=128, \beta_{ik}=8', ...
        'Serial BCD, M=64', 'Parallel BCD, M=64, \beta_{ik}=12', 'Parallel BCD, M=64, \beta_{ik}=4');
 xlabel('Stopping Criteria');
-ylabel('Number of Itertations');
+ylabel('Number of Iterations');
 grid on;
