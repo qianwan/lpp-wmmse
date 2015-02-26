@@ -51,3 +51,26 @@ legend('序列BCD, M=128', '并行BCD, M=128, \beta_{ik}=24', '并行BCD, M=128,
 xlabel('停止条件');
 ylabel('迭代次数');
 grid on;
+
+
+
+dB = [0 : 5 : 30];
+SWMMSE   = [200, 300, 429, 580, 682, 760, 770];
+LPPWMMSE = [228, 355, 495, 605, 725, 790, 802];
+WMMSE    = [282, 392, 504, 677, 787, 885, 904];
+plot(dB, SWMMSE, '-^', dB, LPPWMMSE, '-o', dB, WMMSE, '-s', 'LineWidth', 1.5);
+legend('S-WMMSE', 'LPP-WMMSE', 'WMMSE');
+xlabel('SNR (dB)');
+ylabel('系统吞吐率（比特每用户）');
+grid on;
+
+sc    = [10^-1, 10^-2, 10^-3, 10^-4, 10^-5, 10^-6, 10^-7];
+sbcd  = [1, 8, 25, 59, 125, 203, 307];
+pbcd6 = [1, 4, 12, 28,  48,  79, 119];
+pbcd4 = [1, 3,  9, 22,  37,  56,  82];
+semilogx(sc, sbcd, '-^', sc, pbcd6, '-o', sc, pbcd4, '-s', 'LineWidth', 1.5);
+legend('连续BCD', '并行BCD, \beta_{ik}=6', '并行BCD, \beta_{ik}=4');
+xlabel('停止条件');
+ylabel('迭代次数');
+grid on;
+
