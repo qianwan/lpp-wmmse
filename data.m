@@ -21,13 +21,14 @@ rpcM8Q8C7 = [0.99 0.99 0.98 0.96, 0.93, 0.905];
 rpcM8Q16C7 = [0.95 0.90 0.87 0.855 0.83 0.81];
 bar1 = bar(dB, rpcM8Q8C7, 'BarWidth', 0.2, 'FaceColor', 'b');
 hold on;
-bar2 = bar(dB - 1, rpcWMMSE, 'BarWidth', 0.2, 'FaceColor', 'k');
+bar2 = bar(dB - 1, rpcWMMSE, 'BarWidth', 0.2, 'FaceColor', 'c');
 hold on;
 bar3 = bar(dB + 1, rpcM8Q16C7, 'BarWidth', 0.2, 'FaceColor', 'r');
 xlabel('SNR (dB)');
 ylabel('Relative Power Consumption');
 grid on;
 legend('LPP-WMMSE, M=64', 'WMMSE', 'LPP-WMMSE, M=128');
+axis([0 35 0.6 1]);
 
 range = [1:7];
 epsilon = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7];
