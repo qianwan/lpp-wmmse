@@ -45,7 +45,7 @@ pM64b6 = [];
 pM64b5 = [2.9, 10.2, 35.3, ];
 pM64b4 = [2.8, 9.6, 32, 90, 214, 425, 689];
 loglog(epsilon(range), sM128(range), '-o', epsilon(range), pM128b24(range), '-s', epsilon(range), pM128b8(range), '-p', ...
-         epsilon(range), sM64(range), '-^', epsilon(range), pM64b12(range), '-d', epsilon(range), pM64b4(range), '-h');
+         epsilon(range), sM64(range), '-^', epsilon(range), pM64b12(range), '-d', epsilon(range), pM64b4(range), '-h', 'LineWidth', 1.5);
 legend('Serial BCD, M=128', 'Parallel BCD, M=128, \beta_{ik}=24', 'Parallel BCD, M=128, \beta_{ik}=8', ...
        'Serial BCD, M=64', 'Parallel BCD, M=64, \beta_{ik}=12', 'Parallel BCD, M=64, \beta_{ik}=4');
 xlabel('Stopping Criteria');
