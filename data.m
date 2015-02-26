@@ -13,7 +13,7 @@ plot(dB, rM8Q16C7, '-o', dB, wmmseM8Q16C7, '-s', dB, rM8Q8C7, '-p', dB, wmmseM8Q
 legend('LPP-WMMSE, M=128, G=16', 'WMMSE, M=128', 'LPP-WMMSE, M=64, G=8', 'WMMSE, M=64', 'LPP-WMMSE, M=20, G=5', 'WMMSE, M=20');
 grid on;
 xlabel('SNR (dB)');
-ylabel('System Throughput (bits per channel user)');
+ylabel('系统吞吐率(比特每用户)');
 
 dB = [5 : 5 : 30];
 rpcWMMSE = [1, 1, 1, 1, 1, 1];
@@ -25,7 +25,7 @@ bar2 = bar(dB - 1, rpcWMMSE, 'BarWidth', 0.2, 'FaceColor', 'c');
 hold on;
 bar3 = bar(dB + 1, rpcM8Q16C7, 'BarWidth', 0.2, 'FaceColor', 'r');
 xlabel('SNR (dB)');
-ylabel('Relative Power Consumption');
+ylabel('功率消耗相对值');
 grid on;
 legend('LPP-WMMSE, M=64', 'WMMSE', 'LPP-WMMSE, M=128');
 axis([0 35 0.6 1]);
@@ -46,8 +46,8 @@ pM64b5 = [2.9, 10.2, 35.3, ];
 pM64b4 = [2.8, 9.6, 32, 90, 214, 425, 689];
 loglog(epsilon(range), sM128(range), '-o', epsilon(range), pM128b24(range), '-s', epsilon(range), pM128b8(range), '-p', ...
          epsilon(range), sM64(range), '-^', epsilon(range), pM64b12(range), '-d', epsilon(range), pM64b4(range), '-h', 'LineWidth', 1.5);
-legend('Serial BCD, M=128', 'Parallel BCD, M=128, \beta_{ik}=24', 'Parallel BCD, M=128, \beta_{ik}=8', ...
-       'Serial BCD, M=64', 'Parallel BCD, M=64, \beta_{ik}=12', 'Parallel BCD, M=64, \beta_{ik}=4');
-xlabel('Stopping Criteria');
-ylabel('Number of Iterations');
+legend('序列BCD, M=128', '并行BCD, M=128, \beta_{ik}=24', '并行BCD, M=128, \beta_{ik}=8', ...
+       '序列BCD, M=64', '并行BCD, M=64, \beta_{ik}=12', '并行BCD, M=64, \beta_{ik}=4');
+xlabel('停止条件');
+ylabel('迭代次数');
 grid on;
