@@ -3,13 +3,14 @@ rM8Q8C7 = [259, 340, 422, 510, 590, 650, 692];
 wmmseM8Q8C7 = [278, 357, 430, 495, 536, 562, 584];
 
 rM8Q16C7 = [289, 390, 482, 595, 719, 837, 957];
+wmmseM8Q16C7 = [300, 370, 445, 540, 635, 720, 825];
 
 rM4Q5C7 = [130, 175, 233, 286, 315, 336, 342];
 wmmseM4Q5C7 = [164, 213, 258, 290, 309, 315, 319];
 % power consumption 100%
 
-plot(dB, rM8Q16C7, '-o', dB, rM8Q8C7, '-s', dB, wmmseM8Q8C7, '-p', dB, rM4Q5C7, '-^', dB, wmmseM4Q5C7, '-d', 'LineWidth', 1.5);
-legend('LPP-WMMSE, M=128, G=16', 'LPP-WMMSE, M=64, G=8', 'WMMSE, M=64', 'LPP-WMMSE, M=20, G=5', 'WMMSE, M=20');
+plot(dB, rM8Q16C7, '-o', dB, wmmseM8Q16C7, '-s', dB, rM8Q8C7, '-p', dB, wmmseM8Q8C7, '-^', dB, rM4Q5C7, '-d', dB, wmmseM4Q5C7, '-h', 'LineWidth', 1.5);
+legend('LPP-WMMSE, M=128, G=16', 'WMMSE, M=128', 'LPP-WMMSE, M=64, G=8', 'WMMSE, M=64', 'LPP-WMMSE, M=20, G=5', 'WMMSE, M=20');
 grid on;
 xlabel('SNR (dB)');
 ylabel('System Throughput (bits per channel user)');
